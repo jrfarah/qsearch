@@ -64,7 +64,10 @@ class matrix(object):
 
 	def dot(self, that):
 		''' matrix multiply two matrices'''
-		return numpy.dot(self.matrix, that.matrix)
+		try: 
+			return numpy.dot(self.matrix, that.matrix)
+		except:
+			return numpy.dot(self.matrix, that.elements)
 
 
 	def transpose(self):	
