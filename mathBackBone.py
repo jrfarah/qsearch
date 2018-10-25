@@ -45,17 +45,22 @@ class vector(object):
 	def conjugate(self):
 		return numpy.conjugate(self.elements)
 
+	def normalize(self):
+		magnitude = numpy.sum(self.elements**2)**0.5
+		self.elements = self.elements/magnitude
+		print bcolors.OKGREEN + "Normalized vector!" + bcolors.ENDC
+		return self
+
 
 class matrix(object):
 
 	def __init__(self, elements, size=False):
 		self.elements 	= elements
-		print elements
 		self.type 		= 'vector'
-		if size is not True: 
+		if size is not False: 
 			self.size 	= (int(size), int(size))
 		else:
-			self.size 	= ( numpy.sqrt(len(self.elements)), numpy.sqrt(len(self.elements)) )
+			self.size 	= ( int(numpy.sqrt(len(self.elements))), int(numpy.sqrt(len(self.elements))) )
 
 		self.matrix 	= self.elements.reshape(self.size)
 		self.transpose 	= self.transpose()
@@ -66,11 +71,11 @@ class matrix(object):
 		''' matrix multiply two matrices'''
 		try: 
 			return numpy.dot(self.matrix, that.matrix)
-		except:
+		except AttributeError:
 			return numpy.dot(self.matrix, that.elements)
 
 
-	def transpose(self):	
+	def transpose(self):
 		return numpy.transpose(self.matrix)
 
 	def conjugate(self):

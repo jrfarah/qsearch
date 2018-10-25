@@ -1,15 +1,13 @@
 import mathBackBone
+import numpy 
 
 def framePotential(vec):
 	d = vec.length
-	print d
 	framePotentialSum = 0
-	for k in range(0, d):
-		for l in range(0, d):
-			# framePotentialSum += vec.conjugate.dot(mathBackBone.X(d=d, power=k).dot(mathBackBone.Z(d=d, power=l).dot(vec)))
+	for k in range(d):
+		for l in range(d):
 			middleOperator = mathBackBone.matrix(mathBackBone.X(d=d, power=k).dot(mathBackBone.Z(d=d, power=l)), size=d)
-			print "MIDDLE", middleOperator.matrix.shape
 			middleOperatorDotVector = mathBackBone.vector(middleOperator.dot(vec))
-			framePotentialSum += mathBackBone.vector(vec.conjugate).dot(middleOperatorDotVector)
+			framePotentialSum += numpy.abs(mathBackBone.vector(vec.conjugate).dot(middleOperatorDotVector))**4
 
-	return abs(framePotentialSum)**2
+	return framePotentialSum
