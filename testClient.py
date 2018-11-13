@@ -1,3 +1,4 @@
+import time
 import numpy
 import random
 import findFiducial
@@ -38,7 +39,10 @@ def sicTest():
 def main():
     '''tests to run'''
     # print "Frame potential xof random vector: \n", framePotentialTest()
+    t0 = time.time()
     print FramePotential.framePotentialSeparated(minimizationTest())
+    t1 = time.time()
+    print "Elapsed time: ", t1-t0
     # sicTest()
     # standardMatrixTest()
 
