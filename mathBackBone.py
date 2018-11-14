@@ -116,5 +116,14 @@ def generateSeparatedRandomVector(d):
         elems.append(random.random())
     return vector(elems)
 
+def gMatrixElement(elements, j, k):
+    vec = elements
+    val = 0
+    for s in range(len(vec)):
+        val += numpy.conjugate(vec[s % len(vec)]) * vec[(s + j) % len(vec)] * vec[(s + k) % len(vec)] * numpy.conjugate(vec[(s + j + k) % len(vec)])
 
+    return val
 
+def kDelta(i, j):
+    if i == j:  return 1
+    else:       return 0 

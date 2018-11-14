@@ -79,3 +79,24 @@ def framePotentialSeparated(elementArray):
             framePotentialSum += abs(conjugateVector.dot(lastThree))**4
 
     return framePotentialSum
+
+def framePotential3d2(elementArray):
+    framePotentialSum = 0
+    for j in range(len(elementArray)):
+        for k in range(3):
+            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/len(elementArray) + 1) - mathBackBone.gMatrixElement(elementArray, j, k)**2))
+
+    return framePotential3d2
+
+def framePotential3d2Separated(elementArray):
+    d = len(elementArray)/2
+    elements = []
+    for i in range(0, len(elementArray)-1, 2):
+        elements.append(elementArray[i] + elementArray[i+1]*1j)
+
+    framePotentialSum = 0
+    for j in range(len(elements)):
+        for k in range(3):
+            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/len(elements) + 1) - mathBackBone.gMatrixElement(elements, j, k))**2)
+
+    return framePotential3d2

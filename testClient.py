@@ -6,7 +6,10 @@ import mathBackBone
 import FramePotential
 
 ## TODO
-# enforce that the magnitude will always be normalized, phase freedom of first element is removed 
+# phase freedom of first element is removed 
+
+def gTest():
+    print mathBackBone.gMatrixElement([1, 1, 2j, 1], 1, 2)
 
 def generateRandomVector(d):
     elems = [complex(random.random(), random.random()) for i in range(d)]
@@ -29,7 +32,7 @@ def framePotentialTest2():
     return FramePotential.framePotential(testVec)
 
 def minimizationTest():
-    return findFiducial.findFiducial(d=10)
+    return findFiducial.findFiducial(d=3, framepotential=FramePotential.framePotential3d2Separated)
 
 def sicTest():
     sic = (1./numpy.sqrt(2.))*numpy.array([1, 0, -1, 0, 0, 0])
@@ -38,11 +41,13 @@ def sicTest():
 
 def main():
     '''tests to run'''
-    # print "Frame potential xof random vector: \n", framePotentialTest()
     t0 = time.time()
     print FramePotential.framePotentialSeparated(minimizationTest())
     t1 = time.time()
     print "Elapsed time: ", t1-t0
+    # print "Frame potential xof random vector: \n", framePotentialTest()
+    # gTest()
+    # print FramePotential.framePotentialSeparated(minimizationTest())
     # sicTest()
     # standardMatrixTest()
 

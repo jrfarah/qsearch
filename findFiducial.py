@@ -3,7 +3,7 @@ import mathBackBone
 import scipy.optimize
 import FramePotential
 
-def findFiducial(d=3):
+def findFiducial(d=3, framepotential=FramePotential.framePotentialReal):
     startingVector  = mathBackBone.generateSeparatedRandomVector(d).elements
     minimizedVector = scipy.optimize.minimize(FramePotential.framePotentialReal, startingVector, options={'maxiter':1000})
     return minimizedVector.x
