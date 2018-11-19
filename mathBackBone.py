@@ -1,5 +1,7 @@
 import numpy
 import random
+from decimal import *
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -113,7 +115,7 @@ def generateRandomVector(d):
 def generateSeparatedRandomVector(d):
     elems = []
     for i in range(d*2):
-        elems.append(random.random())
+        elems.append(Decimal(random.random()))
     return vector(elems)
 
 def generatedInflatedVector(elementArray):

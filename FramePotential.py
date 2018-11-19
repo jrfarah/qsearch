@@ -1,5 +1,6 @@
 import mathBackBone
 import numpy 
+from decimal import *
 
 def framePotential(vec):
     ## get frame potential from a VECTOR OBJECT ##
@@ -94,7 +95,7 @@ def framePotential3d2Separated(elementArray):
     d = len(elementArray)/2
     elements = []
     for i in range(0, len(elementArray)-1, 2):
-        elements.append(elementArray[i] + elementArray[i+1]*1j)
+        elements.append(Decimal(elementArray[i]) + Decimal(elementArray[i+1]*1j))
 
     framePotentialSum = 0
     for j in range(len(elements)):
@@ -104,4 +105,4 @@ def framePotential3d2Separated(elementArray):
     return framePotential3d2
 
 # def framePotential3d2SeparatedNonMinimize(elementArray):
-    
+
