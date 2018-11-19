@@ -32,7 +32,7 @@ def framePotentialTest2():
     return FramePotential.framePotential(testVec)
 
 def minimizationTest():
-    return findFiducial.findFiducial(d=3, framepotential=FramePotential.framePotential3d2Separated)
+    return findFiducial.findFiducial(d=3, framepotential=FramePotential.framePotential3d2Separated, return_info=True)
 
 def sicTest():
     sic = (1./numpy.sqrt(2.))*numpy.array([1, 0, -1, 0, 0, 0])
@@ -42,7 +42,10 @@ def sicTest():
 def main():
     '''tests to run'''
     t0 = time.time()
-    print FramePotential.framePotentialSeparated(minimizationTest())
+    vec = minimizationTest()
+    print vec.x
+    print "Analysis of minimization: ", vec
+    print FramePotential.framePotentialSeparated(vec.x)
     t1 = time.time()
     print "Elapsed time: ", t1-t0
     # print "Frame potential xof random vector: \n", framePotentialTest()

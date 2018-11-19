@@ -116,6 +116,13 @@ def generateSeparatedRandomVector(d):
         elems.append(random.random())
     return vector(elems)
 
+def generatedInflatedVector(elementArray):
+    elems = []
+    for i in range(len(elementArray) - 1):
+        elems.append(elementArray[i] + elementArray[i+1]*1j)
+        i += 1
+    return elems
+
 def gMatrixElement(elements, j, k):
     vec = elements
     val = 0

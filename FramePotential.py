@@ -2,7 +2,7 @@ import mathBackBone
 import numpy 
 
 def framePotential(vec):
-    # vec.normalize()
+    ## get frame potential from a VECTOR OBJECT ##
     d = vec.length
     framePotentialSum = 0
     for k in range(d):
@@ -26,7 +26,7 @@ def framePotential(vec):
     return framePotentialSum
 
 def framePotentialReal(elementArray):
-    # vec.normalize()
+    ## (MINIMIZE) get frame potential from a FLATTENED ELEMENT ARRAY ##
     d = len(elementArray)/2
     elements = []
     for i in range(0, len(elementArray)-1, 2):
@@ -54,7 +54,7 @@ def framePotentialReal(elementArray):
     return (framePotentialSum - (2.*d/(d+1.)))**2. + (1.-numpy.linalg.norm(vec.elements))**2
 
 def framePotentialSeparated(elementArray):
-    # vec.normalize()
+    ##  get frame potential from a FLATTENED ELEMENT ARRAY ##
     d = len(elementArray)/2
     elements = []
     for i in range(0, len(elementArray)-1, 2):
@@ -81,14 +81,16 @@ def framePotentialSeparated(elementArray):
     return framePotentialSum
 
 def framePotential3d2(elementArray):
+    ## (MINIMIZE) get frame potential via 2d/d+1 from REAL vector ##
     framePotentialSum = 0
     for j in range(len(elementArray)):
         for k in range(3):
-            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/len(elementArray) + 1) - mathBackBone.gMatrixElement(elementArray, j, k)**2))
+            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/len(elementArray) + 1) - mathBackBone.gMatrixElement(elementArray, j, k)**2))**0.5
 
     return framePotential3d2
 
 def framePotential3d2Separated(elementArray):
+    ## (MINIMIZE) get frame potential via 2d/d+1 from a FLATTENED ELEMENT ARRAY ##
     d = len(elementArray)/2
     elements = []
     for i in range(0, len(elementArray)-1, 2):
@@ -97,6 +99,9 @@ def framePotential3d2Separated(elementArray):
     framePotentialSum = 0
     for j in range(len(elements)):
         for k in range(3):
-            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/len(elements) + 1) - mathBackBone.gMatrixElement(elements, j, k))**2)
+            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/len(elements) + 1) - mathBackBone.gMatrixElement(elements, j, k))**2)**0.5
 
     return framePotential3d2
+
+# def framePotential3d2SeparatedNonMinimize(elementArray):
+    
