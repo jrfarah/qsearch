@@ -45,7 +45,7 @@ def main():
     vec = minimizationTest()
     print vec.x
     print "Analysis of minimization: ", vec
-    print FramePotential.framePotentialSeparated(vec.x)
+    print "HI", FramePotential.framePotential3d2nonMinimize(vec.x)
     t1 = time.time()
     print "Elapsed time: ", t1-t0
     # print "Frame potential xof random vector: \n", framePotentialTest()

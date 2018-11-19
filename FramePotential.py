@@ -32,6 +32,7 @@ def framePotentialReal(elementArray):
     elements = []
     for i in range(0, len(elementArray)-1, 2):
         elements.append(elementArray[i] + elementArray[i+1]*1j)
+
     vec = mathBackBone.vector(elements)
     framePotentialSum = 0
     for k in range(d):
@@ -52,7 +53,7 @@ def framePotentialReal(elementArray):
             framePotentialSum += abs(conjugateVector.dot(lastThree))**4
 
 
-    return (framePotentialSum - (2.*d/(d+1.)))**2. + (1.-numpy.linalg.norm(vec.elements))**2
+    return (framePotentialSum)# - (2.*d/(d+1.)))**2. + (1.-numpy.linalg.norm(vec.elements))**2
 
 def framePotentialSeparated(elementArray):
     ##  get frame potential from a FLATTENED ELEMENT ARRAY ##
@@ -86,7 +87,7 @@ def framePotential3d2(elementArray):
     framePotentialSum = 0
     for j in range(len(elementArray)):
         for k in range(3):
-            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/len(elementArray) + 1) - mathBackBone.gMatrixElement(elementArray, j, k)**2))**0.5
+            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/(len(elementArray) + 1)) - mathBackBone.gMatrixElement(elementArray, j, k)**2))
 
     return framePotential3d2
 
@@ -95,14 +96,28 @@ def framePotential3d2Separated(elementArray):
     d = len(elementArray)/2
     elements = []
     for i in range(0, len(elementArray)-1, 2):
-        elements.append(Decimal(elementArray[i]) + Decimal(elementArray[i+1]*1j))
+        elements.append(elementArray[i] + elementArray[i+1]*1j)
 
     framePotentialSum = 0
     for j in range(len(elements)):
         for k in range(3):
-            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/len(elements) + 1) - mathBackBone.gMatrixElement(elements, j, k))**2)**0.5
+            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/(d + 1)) - mathBackBone.gMatrixElement(elements, j, k))**2)
 
-    return framePotential3d2
+    return framePotentialSum
+
+def framePotential3d2nonMinimize(elementArray):
+    ## (MINIMIZE) get frame potential via 2d/d+1 from REAL vector ##
+    d = len(elementArray)/2
+    elements = []
+    for i in range(0, len(elementArray)-1, 2):
+        elements.append(elementArray[i] + elementArray[i+1]*1j)
+
+    framePotentialSum = 0
+    for j in range(len(elements)):
+        for k in range(3):
+            framePotentialSum += abs((mathBackBone.gMatrixElement(elements, j, k)**2))
+
+    return framePotentialSum
 
 # def framePotential3d2SeparatedNonMinimize(elementArray):
 
