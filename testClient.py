@@ -43,7 +43,7 @@ def main():
     '''tests to run'''
     t0 = time.time()
     vec = minimizationTest()
-    print vec.x
+    print "VECTOR RESULT", vec.x
     print "Analysis of minimization: ", vec
     print "HI", FramePotential.framePotential3d2nonMinimize(vec.x)
     t1 = time.time()

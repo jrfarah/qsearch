@@ -101,7 +101,7 @@ def framePotential3d2Separated(elementArray):
     framePotentialSum = 0
     for j in range(len(elements)):
         for k in range(3):
-            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/(d + 1)) - mathBackBone.gMatrixElement(elements, j, k))**2)
+            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/(d + 1)) - mathBackBone.gMatrixElement(elementArray, j, k))**2)
 
     return framePotentialSum
 
@@ -115,7 +115,7 @@ def framePotential3d2nonMinimize(elementArray):
     framePotentialSum = 0
     for j in range(len(elements)):
         for k in range(3):
-            framePotentialSum += abs((mathBackBone.gMatrixElement(elements, j, k)**2))
+            framePotentialSum += abs(mathBackBone.gMatrixElement(elementArray, j, k))
 
     return framePotentialSum
 

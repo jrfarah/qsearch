@@ -127,10 +127,14 @@ def generatedInflatedVector(elementArray):
 
 def gMatrixElement(elementArray, j, k):
     vec = elementArray
+    elements = []
+    for i in range(0, len(elementArray)-1, 2):
+        elements.append(elementArray[i] + elementArray[i+1]*1j)
+
     val = 0
-    for s in range(len(vec)):
+    for s in range(len(elements)):
         # val += 
-        val += numpy.conjugate(vec[s % len(vec)]) * vec[(s + j) % len(vec)] * vec[(s + k) % len(vec)] * numpy.conjugate(vec[(s + j + k) % len(vec)])
+        val += numpy.conjugate(elements[s % len(elements)]) * elements[(s + j) % len(elements)] * elements[(s + k) % len(elements)] * numpy.conjugate(elements[(s + j + k) % len(elements)])
 
     return val
 
