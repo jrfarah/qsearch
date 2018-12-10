@@ -35,7 +35,7 @@ def framePotentialTest2():
     return FramePotential.framePotential(testVec)
 
 def minimizationTest():
-    return findFiducial.findFiducial(d=2, framepotential=FramePotential.framePotential3d2Separated, return_info=True)
+    return findFiducial.findFiducial(d=2, framepotential=FramePotential.framePotentialReal, return_info=True)
 
 def sicTest():
     sic = (1./numpy.sqrt(2.))*numpy.array([1, 0, -1, 0, 0, 0])

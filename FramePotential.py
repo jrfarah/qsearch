@@ -30,9 +30,12 @@ def framePotential(vec):
 def framePotentialReal(elementArray):
     ## (MINIMIZE) get frame potential from a FLATTENED ELEMENT ARRAY ##
     d = len(elementArray)/2
+    vec = elementArray
     elements = []
     for i in range(0, len(elementArray)-1, 2):
-        elements.append(elementArray[i] + elementArray[i+1]*1j)
+        # print "REAL", elementArray[i]
+        # print "COMPLEX", elementArray[i+1]
+        elements.append(complex(elementArray[i], elementArray[i+1]))
 
     vec = mathBackBone.vector(elements)
     framePotentialSum = 0
@@ -54,7 +57,7 @@ def framePotentialReal(elementArray):
             framePotentialSum += abs(conjugateVector.dot(lastThree))**4
 
 
-    return (framePotentialSum)# - (2.*d/(d+1.)))**2. + (1.-numpy.linalg.norm(vec.elements))**2
+    return ((framePotentialSum) - (2.*d/(d+1.)))**2. + (1.-numpy.linalg.norm(vec.elements))**2
 
 def framePotentialSeparated(elementArray):
     ##  get frame potential from a FLATTENED ELEMENT ARRAY ##
