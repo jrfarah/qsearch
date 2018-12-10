@@ -8,4 +8,6 @@ def findFiducial(d=3, framepotential=FramePotential.framePotentialReal, return_i
     startingVector  = mathBackBone.generateSeparatedRandomVector(d).elements
     minimizedVector = scipy.optimize.minimize(framepotential, startingVector, method='SLSQP', options={'maxiter':1000, 'ftol':Decimal(10**(-50))})
     if return_info == True: return minimizedVector
-    return minimizedVector.xxww
+    return minimizedVector.x
+
+   

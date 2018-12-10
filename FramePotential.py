@@ -1,6 +1,7 @@
 import mathBackBone
 import numpy 
 from decimal import *
+import time
 
 def framePotential(vec):
     ## get frame potential from a VECTOR OBJECT ##
@@ -87,30 +88,35 @@ def framePotential3d2(elementArray):
     framePotentialSum = 0
     for j in range(len(elementArray)):
         for k in range(3):
-            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/(len(elementArray) + 1)) - mathBackBone.gMatrixElement(elementArray, j, k)**2))
-
+            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/(len(elementArray) + 1)) - mathBackBone.gMatrixElement(elementArray, j, k)**2)) 
     return framePotential3d2
 
 def framePotential3d2Separated(elementArray):
     ## (MINIMIZE) get frame potential via 2d/d+1 from a FLATTENED ELEMENT ARRAY ##
     d = len(elementArray)/2
+    vec = elementArray
     elements = []
     for i in range(0, len(elementArray)-1, 2):
-        elements.append(elementArray[i] + elementArray[i+1]*1j)
+        # print "REAL", elementArray[i]
+        # print "COMPLEX", elementArray[i+1]
+        elements.append(complex(elementArray[i], elementArray[i+1]))
 
+    # print ((mathBackBone.kDelta(0, 0) + mathBackBone.kDelta(0, 0))/(d + 1)) 
     framePotentialSum = 0
-    for j in range(len(elements)):
+    for l in range(len(elements)):
         for k in range(3):
-            framePotentialSum += abs((((mathBackBone.kDelta(j, 0) + mathBackBone.kDelta(k, 0))/(d + 1)) - mathBackBone.gMatrixElement(elementArray, j, k))**2)
+            framePotentialSum += abs((((mathBackBone.kDelta(l, 0) + mathBackBone.kDelta(k, 0))/(d + 1)) - mathBackBone.gMatrixElement(elementArray, l, k))**2) 
 
-    return framePotentialSum
+    return framePotentialSum + (1-numpy.linalg.norm(elements))**2
 
 def framePotential3d2nonMinimize(elementArray):
     ## (MINIMIZE) get frame potential via 2d/d+1 from REAL vector ##
     d = len(elementArray)/2
     elements = []
     for i in range(0, len(elementArray)-1, 2):
-        elements.append(elementArray[i] + elementArray[i+1]*1j)
+        # print "REAL", elementArray[i]
+        # print "COMPLEX", elementArray[i+1]
+        elements.append(complex(elementArray[i], elementArray[i+1]))
 
     framePotentialSum = 0
     for j in range(len(elements)):

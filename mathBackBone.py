@@ -116,28 +116,35 @@ def generateSeparatedRandomVector(d):
     elems = []
     for i in range(d*2):
         elems.append(Decimal(random.random()))
-    return vector(elems)
+    elemsSum = 0
+    for elem in elems:
+        elemsSum += elem**2
+    return vector(numpy.array(elems)/numpy.sqrt((elemsSum)))
 
 def generatedInflatedVector(elementArray):
     elems = []
-    for i in range(len(elementArray) - 1):
-        elems.append(elementArray[i] + elementArray[i+1]*1j)
-        i += 1
-    return elems
+    elements = []
+    for i in range(0, len(elementArray)-1, 2):
+        # print "REAL", elementArray[i]
+        # print "COMPLEX", elementArray[i+1]
+        elements.append(complex(elementArray[i], elementArray[i+1]))
+    return elements
 
-def gMatrixElement(elementArray, j, k):
+def gMatrixElement(elementArray, l, k):
     vec = elementArray
     elements = []
     for i in range(0, len(elementArray)-1, 2):
-        elements.append(elementArray[i] + elementArray[i+1]*1j)
+        # print "REAL", elementArray[i]
+        # print "COMPLEX", elementArray[i+1]
+        elements.append(complex(elementArray[i], elementArray[i+1]))
 
     val = 0
     for s in range(len(elements)):
         # val += 
-        val += numpy.conjugate(elements[s % len(elements)]) * elements[(s + j) % len(elements)] * elements[(s + k) % len(elements)] * numpy.conjugate(elements[(s + j + k) % len(elements)])
+        val += numpy.conjugate(elements[s % len(elements)]) * elements[(s + l) % len(elements)] * elements[(s + k) % len(elements)] * numpy.conjugate(elements[(s + k + l) % len(elements)])
 
     return val
 
 def kDelta(i, j):
-    if i == j:  return 1
-    else:       return 0 
+    if i == j:  return 1.0
+    else:       return 0.0
