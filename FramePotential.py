@@ -1,3 +1,5 @@
+## to do: enforce first element to be real ##
+
 import mathBackBone
 import numpy 
 from decimal import *
@@ -35,7 +37,8 @@ def framePotentialReal(elementArray):
     for i in range(0, len(elementArray)-1, 2):
         # print "REAL", elementArray[i]
         # print "COMPLEX", elementArray[i+1]
-        elements.append(complex(elementArray[i], elementArray[i+1]))
+        elements.append(complex(elementArray[i], elementArray[i+1])/numpy.linalg.norm(elementArray))
+
 
     vec = mathBackBone.vector(elements)
     framePotentialSum = 0

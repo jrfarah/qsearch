@@ -7,6 +7,7 @@ import FramePotential
 
 ## TODO
 # phase freedom of first element is removed 
+# restructure frame potentials to be less moronic
 
 def gTest():
     for i in range(4):
@@ -35,7 +36,7 @@ def framePotentialTest2():
     return FramePotential.framePotential(testVec)
 
 def minimizationTest():
-    return findFiducial.findFiducial(d=2, framepotential=FramePotential.framePotentialReal, return_info=True)
+    return findFiducial.findFiducial(d=2, framepotential=FramePotential.framePotential3d2Separated, return_info=True)
 
 def sicTest():
     sic = (1./numpy.sqrt(2.))*numpy.array([1, 0, -1, 0, 0, 0])
@@ -48,7 +49,7 @@ def main():
     vec = minimizationTest()
     print "VECTOR RESULT", vec.x
     print "Analysis of minimization: ", vec
-    print "Frame potential of minimized vector", FramePotential.framePotentialReal(vec.x)
+    print "Frame potential of minimized vector", FramePotential.framePotentialSeparated(vec.x)
     print "NORM", numpy.linalg.norm(vec.x)
     # print "HI", FramePotential.framePotential3d2nonMinimize(vec.x)
     t1 = time.time()
